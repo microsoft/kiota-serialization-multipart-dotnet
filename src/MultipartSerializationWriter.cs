@@ -27,7 +27,10 @@ public class MultipartSerializationWriter : ISerializationWriter
     /// </summary>
     public MultipartSerializationWriter()
     {
-        writer = new StreamWriter(_stream);
+        writer = new StreamWriter(_stream)
+        {
+            AutoFlush = true // important as we also write to the stream directly
+        };
     }
     /// <inheritdoc/>
     public void Dispose()
@@ -86,7 +89,7 @@ public class MultipartSerializationWriter : ISerializationWriter
     /// <inheritdoc/>
     public void WriteObjectValue<T>(string? key, T? value, params IParsable?[] additionalValuesToMerge) where T : IParsable
     {
-        if(value is MultiPartBody)
+        if(value is MultipartBody)
         {
             OnBeforeObjectSerialization?.Invoke(value);
             OnStartObjectSerialization?.Invoke(value, this);
