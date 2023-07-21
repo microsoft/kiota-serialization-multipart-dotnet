@@ -79,7 +79,10 @@ public class MultipartSerializationWriterTests
         };
         var mockRequestAdapter = new Mock<IRequestAdapter>();
         mockRequestAdapter.SetupGet(x => x.SerializationWriterFactory).Returns(new JsonSerializationWriterFactory());
-        var mpBody = new MultipartBody(mockRequestAdapter.Object);
+        var mpBody = new MultipartBody
+        {
+            RequestAdapter = mockRequestAdapter.Object
+        };
         mpBody.AddOrReplacePart("testEntity", "application/json", testEntity);
         mpBody.AddOrReplacePart("image", "application/octet-stream", new byte[] { 1, 2, 3 });
 
@@ -114,7 +117,10 @@ public class MultipartSerializationWriterTests
         };
         var mockRequestAdapter = new Mock<IRequestAdapter>();
         mockRequestAdapter.SetupGet(x => x.SerializationWriterFactory).Returns(new JsonSerializationWriterFactory());
-        var mpBody = new MultipartBody(mockRequestAdapter.Object);
+        var mpBody = new MultipartBody
+        {
+            RequestAdapter = mockRequestAdapter.Object
+        };
         mpBody.AddOrReplacePart("image", "application/octet-stream", new byte[] { 1, 2, 3 });
         mpBody.AddOrReplacePart("testEntity", "application/json", testEntity);
 
