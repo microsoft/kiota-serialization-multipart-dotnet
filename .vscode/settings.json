@@ -1,0 +1,7 @@
+{
+	"omnisharp.enableRoslynAnalyzers": true,
+	"cSpell.words": [
+		"Kiota"
+	],
+	"editor.formatOnSave": true
+}
