@@ -14,22 +14,47 @@ namespace Microsoft.Kiota.Serialization.Multipart;
 /// </summary>
 public class MultipartSerializationWriter : ISerializationWriter
 {
+    private readonly MemoryStream _stream = new MemoryStream();
     /// <inheritdoc/>
-    public Action<IParsable>? OnBeforeObjectSerialization { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public Action<IParsable>? OnBeforeObjectSerialization { get; set; }
     /// <inheritdoc/>
-    public Action<IParsable>? OnAfterObjectSerialization { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public Action<IParsable>? OnAfterObjectSerialization { get; set; }
     /// <inheritdoc/>
-    public Action<IParsable, ISerializationWriter>? OnStartObjectSerialization { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public Action<IParsable, ISerializationWriter>? OnStartObjectSerialization { get; set; }
+    private readonly StreamWriter writer;
+    /// <summary>
+    /// Instantiates a new multipart serialization writer.
+    /// </summary>
+    public MultipartSerializationWriter()
+    {
+        writer = new StreamWriter(_stream);
+    }
     /// <inheritdoc/>
-    public void Dispose() => throw new NotImplementedException();
+    public void Dispose()
+    {
+        writer.Dispose();
+        _stream.Dispose();
+        GC.SuppressFinalize(this);
+    }
     /// <inheritdoc/>
-    public Stream GetSerializedContent() => throw new NotImplementedException();
+    public Stream GetSerializedContent()
+    {
+        writer.Flush();
+        _stream.Position = 0;
+        return _stream;
+    }
     /// <inheritdoc/>
     public void WriteAdditionalData(IDictionary<string, object> value) => throw new NotImplementedException();
     /// <inheritdoc/>
     public void WriteBoolValue(string? key, bool? value) => throw new NotImplementedException();
     /// <inheritdoc/>
-    public void WriteByteArrayValue(string? key, byte[]? value) => throw new NotImplementedException();
+    public void WriteByteArrayValue(string? key, byte[]? value)
+    {
+        if(value != null && value.Length > 0)
+        {
+            _stream.Write(value, 0, value.Length);
+        }
+    }
     /// <inheritdoc/>
     public void WriteByteValue(string? key, byte? value) => throw new NotImplementedException();
     /// <inheritdoc/>
@@ -59,11 +84,33 @@ public class MultipartSerializationWriter : ISerializationWriter
     /// <inheritdoc/>
     public void WriteNullValue(string? key) => throw new NotImplementedException();
     /// <inheritdoc/>
-    public void WriteObjectValue<T>(string? key, T? value, params IParsable?[] additionalValuesToMerge) where T : IParsable => throw new NotImplementedException();
+    public void WriteObjectValue<T>(string? key, T? value, params IParsable?[] additionalValuesToMerge) where T : IParsable
+    {
+        if(value is MultiPartBody)
+        {
+            OnBeforeObjectSerialization?.Invoke(value);
+            OnStartObjectSerialization?.Invoke(value, this);
+            value.Serialize(this);
+            OnAfterObjectSerialization?.Invoke(value);
+        }
+        else
+            throw new InvalidOperationException($"Expected a MultiPartBody instance, but got {value?.GetType().Name ?? "null"}");
+    }
     /// <inheritdoc/>
     public void WriteSbyteValue(string? key, sbyte? value) => throw new NotImplementedException();
     /// <inheritdoc/>
-    public void WriteStringValue(string? key, string? value) => throw new NotImplementedException();
+    public void WriteStringValue(string? key, string? value)
+    {
+        if(!string.IsNullOrEmpty(key))
+            writer.Write(key);
+        if(!string.IsNullOrEmpty(value))
+        {
+            if(!string.IsNullOrEmpty(key))
+                writer.Write(": ");
+            writer.Write(value);
+        }
+        writer.WriteLine();
+    }
     /// <inheritdoc/>
     public void WriteTimeSpanValue(string? key, TimeSpan? value) => throw new NotImplementedException();
     /// <inheritdoc/>
