@@ -1,20 +1,28 @@
-# Project
+# Kiota Multipart Serialization Library for dotnet
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+[![Build and Test](https://github.com/microsoft/kiota-serialization-multipart-dotnet/actions/workflows/build-and_test.yml/badge.svg?branch=main)](https://github.com/microsoft/kiota-serialization-multipart-dotnet/actions/workflows/build-and_test.yml) [![NuGet Version](https://buildstats.info/nuget/Microsoft.Kiota.Serialization.Multipart?includePreReleases=true)](https://www.nuget.org/packages/Microsoft.Kiota.Serialization.Multipart/)
 
-As the maintainer of this project, please make a few updates:
+The Multipart Serialization Library for dotnet is the dotnet Multipart serialization library implementation.
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+A [Kiota](https://github.com/microsoft/kiota) generated project will need a reference to a multipart serialization package to handle multipart payloads from an API endpoint.
+
+Read more about Kiota [here](https://github.com/microsoft/kiota/blob/main/README.md).
+
+## Using the Kiota Multipart Serialization Library
+
+```shell
+dotnet add package Microsoft.Kiota.Serialization.Multipart --prerelease
+```
+
+## Debugging
+
+If you are using Visual Studio Code as your IDE, the **launch.json** file already contains the configuration to build and test the library. Otherwise, you can open the **Microsoft.Kiota.Serialization.Multipart.sln** with Visual Studio.
 
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+the rights to use your contribution. For details, visit [https://cla.opensource.microsoft.com](https://cla.opensource.microsoft.com).
 
 When you submit a pull request, a CLA bot will automatically determine whether you need to provide
 a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
@@ -26,8 +34,8 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 ## Trademarks
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft
+trademarks or logos is subject to and must follow
+[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
