@@ -1,7 +1,6 @@
 {
-	"omnisharp.enableRoslynAnalyzers": true,
-	"cSpell.words": [
-		"Kiota"
-	],
-	"editor.formatOnSave": true
+  "omnisharp.enableRoslynAnalyzers": true,
+  "cSpell.words": ["Kiota"],
+  "editor.formatOnSave": true,
+  "dotnet-test-explorer.testProjectPath": "**/*.Tests.csproj"
 }
