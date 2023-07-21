@@ -27,7 +27,12 @@ public class MultipartSerializationWriter : ISerializationWriter
     /// </summary>
     public MultipartSerializationWriter()
     {
-        writer = new StreamWriter(_stream)
+        writer = new StreamWriter(_stream,
+            // Default encoding
+            encoding: new System.Text.UTF8Encoding(false, true),
+            // Default buffer size
+            bufferSize: 1024,
+            leaveOpen: true)
         {
             AutoFlush = true // important as we also write to the stream directly
         };
@@ -36,7 +41,6 @@ public class MultipartSerializationWriter : ISerializationWriter
     public void Dispose()
     {
         writer.Dispose();
-        _stream.Dispose();
         GC.SuppressFinalize(this);
     }
     /// <inheritdoc/>
