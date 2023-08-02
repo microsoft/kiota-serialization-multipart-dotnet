@@ -34,7 +34,8 @@ public class MultipartSerializationWriter : ISerializationWriter
             bufferSize: 1024,
             leaveOpen: true)
         {
-            AutoFlush = true // important as we also write to the stream directly
+            AutoFlush = true, // important as we also write to the stream directly
+            NewLine = "\r\n", // http spec
         };
     }
     /// <inheritdoc/>
