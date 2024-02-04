@@ -88,7 +88,7 @@ public class MultipartSerializationWriter : ISerializationWriter
     public void WriteDoubleValue(string? key, double? value) => throw new NotImplementedException();
     /// <inheritdoc/>
 #if NET5_0_OR_GREATER
-    public void WriteEnumValue<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]T>(string? key, T? value) where T : struct, Enum => throw new NotImplementedException();
+    public void WriteEnumValue<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields)]T>(string? key, T? value) where T : struct, Enum => throw new NotImplementedException();
 #else
     public void WriteEnumValue<T>(string? key, T? value) where T : struct, Enum => throw new NotImplementedException();
 #endif
