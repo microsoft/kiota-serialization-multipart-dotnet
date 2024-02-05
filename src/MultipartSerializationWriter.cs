@@ -70,7 +70,7 @@ public class MultipartSerializationWriter : ISerializationWriter
     public void WriteByteValue(string? key, byte? value) => throw new NotImplementedException();
     /// <inheritdoc/>
 #if NET5_0_OR_GREATER
-    public void WriteCollectionOfEnumValues<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]T>(string? key, IEnumerable<T?>? values) where T : struct, Enum => throw new NotImplementedException();
+    public void WriteCollectionOfEnumValues<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields)] T>(string? key, IEnumerable<T?>? values) where T : struct, Enum => throw new NotImplementedException();
 #else
     public void WriteCollectionOfEnumValues<T>(string? key, IEnumerable<T?>? values) where T : struct, Enum => throw new NotImplementedException();
 #endif
@@ -88,7 +88,7 @@ public class MultipartSerializationWriter : ISerializationWriter
     public void WriteDoubleValue(string? key, double? value) => throw new NotImplementedException();
     /// <inheritdoc/>
 #if NET5_0_OR_GREATER
-    public void WriteEnumValue<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields)]T>(string? key, T? value) where T : struct, Enum => throw new NotImplementedException();
+    public void WriteEnumValue<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields)] T>(string? key, T? value) where T : struct, Enum => throw new NotImplementedException();
 #else
     public void WriteEnumValue<T>(string? key, T? value) where T : struct, Enum => throw new NotImplementedException();
 #endif
